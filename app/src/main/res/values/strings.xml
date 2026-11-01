@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CanisCare</string>
+    <string name="app_tagline">Plataforma Integral de Cuidado Canino</string>
+    <string name="google_maps_key" translatable="false">YOUR_GOOGLE_MAPS_KEY_HERE</string>
+    
+    <!-- Info de la app original (Punto 1 y 2) -->
+    <string name="app_version">2.0.0 (Corte III)</string>
+    <string name="university_name">Universidad de San Buenaventura</string>
+    <string name="course_name">Desarrollo de Aplicaciones Móviles - Optativa II</string>
+    <string name="professor_name">Ing. Jairo Armando Salcedo Aranda</string>
+    <string name="app_description">CanisCare es una plataforma moderna para el bienestar de tu perro: cálculo de edad biológica, marketplace especializado en alimentos caninos, ubicación de veterinarias y urgencias 24h, chat inteligente con IA y comunidad de usuarios.</string>
+</resources>

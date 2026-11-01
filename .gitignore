@@ -1,0 +1,52 @@
+# ==============================================================================
+# CanisCare - .gitignore
+# Exclusión de archivos sensibles, memoria del sistema y temporales de compilación
+# ==============================================================================
+
+# Contexto Interno del Sistema y Asistente (Sensible / Exclusivo Local)
+PROJECT_CONTEXT.md
+GUIA_CONEXION_FIREBASE.md
+
+# Archivos de Credenciales y Secretos de Firebase / Cloud
+google-services.json
+app/google-services.json
+*.keystore
+*.jks
+*.key
+*.pem
+secrets.properties
+
+# Archivos de Configuración Local y Entorno de Android Studio
+local.properties
+.gradle/
+.kotlin/
+.cxx/
+captures/
+.externalNativeBuild/
+
+# Archivos de Volcado de Memoria y Heap Dumps (Evita subir archivos gigantes como java_pid*.hprof)
+*.hprof
+java_pid*.hprof
+*.dump
+*.log
+
+# Archivos de Salida de Compilación y Artefactos
+build/
+app/build/
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Configuraciones de Entorno de Desarrollo (IDE JetBrains / Android Studio)
+.idea/
+*.iml
+.navigation/
+
+# Archivos Generados por el Sistema Operativo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta Canina Accesible -->
+    <color name="primary">#1E88E5</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#E3F2FD</color>
+    <color name="on_primary_container">#0D47A1</color>
+    
+    <color name="secondary">#00897B</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="secondary_container">#E0F2F1</color>
+    <color name="on_secondary_container">#004D40</color>
+    
+    <color name="tertiary">#FF8F00</color>
+    <color name="on_tertiary">#FFFFFF</color>
+    
+    <color name="background">#F8F9FA</color>
+    <color name="on_background">#212121</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_surface">#212121</color>
+    
+    <color name="error">#D32F2F</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="error_container">#FFEBEE</color>
+    <color name="on_error_container">#B71C1C</color>
+    
+    <color name="outline">#BDBDBD</color>
+
+    <!-- Compatibilidad de drawables -->
+    <color name="purple_primary">#1E88E5</color>
+    <color name="gold_accent">#FF8F00</color>
+</resources>
