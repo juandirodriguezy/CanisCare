@@ -6,15 +6,6 @@
 ![Firebase](https://img.shields.io/badge/Firebase-Auth_%26_Firestore-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
-> **Institución:** Universidad de San Buenaventura  
-> **Asignatura:** Desarrollo de Aplicaciones para Dispositivos Móviles (Optativa II)  
-> **Docente:** Ing. Jairo Armando Salcedo Aranda  
-> **Integrantes:**  
-> - **Juan Diego**  
-> - **María Alejandra**  
-
----
-
 ## 📌 1. Visión General del Proyecto
 
 **CanisCare** es una solución móvil moderna que evoluciona una calculadora básica de edad canina en un ecosistema de servicios veterinarios y de bienestar para perros. La aplicación combina computación declarativa en **Jetpack Compose (Material 3)**, persistencia en la nube en tiempo real (**Firebase Firestore**), asistencia inteligente (**Google Gemini API**) y servicios de geolocalización (**Google Maps SDK**) bajo una arquitectura orientada a componentes desacoplados.
