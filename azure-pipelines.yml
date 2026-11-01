@@ -1,0 +1,80 @@
+# ==============================================================================
+# Azure Pipelines CI: CanisCare (Aplicación de la Edad del Perro)
+# Asignatura: Optativa II - Universidad de San Buenaventura
+# Docente: Ing. Jairo Armando Salcedo Aranda
+# ==============================================================================
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
+  JAVA_VERSION: '17'
+
+steps:
+  # 1. Configurar JDK 17 (Estándar compatible con Gradle 9 y AGP)
+  - task: JavaToolInstaller@0
+    displayName: 'Configurar JDK $(JAVA_VERSION)'
+    inputs:
+      versionSpec: $(JAVA_VERSION)
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
+  # 2. Dar permisos de ejecución al wrapper de Gradle
+  - bash: |
+      chmod +x gradlew
+    displayName: 'Asignar permisos a gradlew'
+
+  # 3. Inyectar google-services.json de CI si fue excluido por .gitignore
+  - bash: |
+      if [ ! -f app/google-services.json ]; then
+        echo "google-services.json no encontrado (protegido por .gitignore). Generando credencial segura para CI..."
+        echo '{"project_info":{"project_number":"000000000000","project_id":"caniscare-ci","storage_bucket":"caniscare-ci.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:000000000000:android:0000000000000000000000","android_client_info":{"package_name":"com.example.caniscare"}},"oauth_client":[],"api_key":[{"current_key":"AIzaSyDUMMY_KEY_FOR_CI_BUILD"}],"services":{}}],"configuration_version":"1"}' > app/google-services.json
+        echo "google-services.json generado con éxito para el pipeline."
+      else
+        echo "google-services.json presente en el repositorio."
+      fi
+    displayName: 'Verificar / Proveer configuración de Firebase para CI'
+
+  # 4. Ejecutar Pruebas Unitarias Automatizadas
+  - bash: |
+      ./gradlew testDebugUnitTest --no-daemon --stacktrace
+    displayName: 'Ejecutar Pruebas Unitarias (testDebugUnitTest)'
+
+  # 5. Publicar Resultados de Pruebas Unitarias en Azure DevOps
+  - task: PublishTestResults@2
+    displayName: 'Publicar Reporte de Pruebas Unitarias (JUnit)'
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)/app/build/test-results/testDebugUnitTest'
+      mergeTestResults: true
+      failTaskOnFailedTests: true
+      testRunTitle: 'CanisCare - Pruebas Unitarias Automatizadas'
+
+  # 6. Compilar el APK de Depuración (assembleDebug)
+  - bash: |
+      ./gradlew assembleDebug --no-daemon --stacktrace
+    displayName: 'Compilar APK Android (assembleDebug)'
+
+  # 7. Copiar el archivo APK generado al directorio de artefactos
+  - task: CopyFiles@2
+    displayName: 'Copiar APK a la zona de empaquetado'
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/app/build/outputs/apk/debug'
+      Contents: '*.apk'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/apk'
+
+  # 8. Publicar el Artefacto (Drop) en Azure Pipelines
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publicar Artefacto de Construcción (Drop)'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/apk'
+      ArtifactName: 'caniscare-apk'
+      publishLocation: 'Container'
